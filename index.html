@@ -296,6 +296,358 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/13/利用Django进行Web开发（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="居平<juping>">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="居平学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/13/利用Django进行Web开发（一）/" itemprop="url">利用Django进行Web开发（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-13T13:13:59+08:00">
+                2018-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/13/利用Django进行Web开发（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/13/利用Django进行Web开发（一）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h1><pre><code>Django是Python的web开发框架，好多人再学Python就是在学Django
+</code></pre><h1 id="2-什么是Web开发？"><a href="#2-什么是Web开发？" class="headerlink" title="2. 什么是Web开发？"></a>2. 什么是Web开发？</h1><pre><code>Internet上供外界访问的Web资源主要分为两类：
+    + 静态资源
+    + 动态资源
+
+通俗的讲，web开发就是我们说的开发网站，分为网页部分和逻辑部分，也就是我们说的前台和后台
+
+B/S架构和C/S架构
+</code></pre><h1 id="3-什么是Django"><a href="#3-什么是Django" class="headerlink" title="3. 什么是Django?"></a>3. 什么是Django?</h1><pre><code>Django是一个可以使Web开发工作愉快并且高效的Web开发框架，使用Django,使你能够以最小的代价构建和维护高质量的Web应用
+</code></pre><h1 id="4-Python-Django的安装"><a href="#4-Python-Django的安装" class="headerlink" title="4. Python Django的安装"></a>4. Python Django的安装</h1><p>4.1 <a href="https://www.djangoproject.com/" target="_blank" rel="noopener">Django官网</a>下载<br>    4.2 确保已经安装python<br>    4.3 windows下解压缩Django下载文件，执行 python setup.py install<br>        linux tar xzvf Django.tar<br>        cd Django<br>        sudo python setup.py install<br>    4.4 安装成功后，创建python文件 test.py<br>        import django<br>        django.VERSON</p>
+<h1 id="5-创建项目"><a href="#5-创建项目" class="headerlink" title="5. 创建项目"></a>5. 创建项目</h1><pre><code>5.1 找到django-admin.py文件，加入系统路径
+5.2 进入django-admin.py 目录，执行 python django-admin.py startproject mysite
+</code></pre><p><img src="/2018/03/13/利用Django进行Web开发（一）/1.png" alt=""></p>
+<pre><code>5.3 startproject命令创建了一个目录，包含一个名为mysite的文件夹和manage.py的文件，
+    mysite文件夹下含有四个文件：
+        1. __init__.py
+        2. settings.py
+        3. urls.py
+        4. wsgi.py
+5.4 启动django内置的web服务： python manage.py runserver
+</code></pre><p><img src="/2018/03/13/利用Django进行Web开发（一）/2.png" alt=""></p>
+<h1 id="6-新建django视图模板"><a href="#6-新建django视图模板" class="headerlink" title="6. 新建django视图模板"></a>6. 新建django视图模板</h1><pre><code>cd mysite文件夹下，新建views.py文件，注意：views.py即为视图模板文件
+</code></pre><p><img src="/2018/03/13/利用Django进行Web开发（一）/3.png" alt=""></p>
+<pre><code>编辑路由配置urls.py
+</code></pre><p><img src="/2018/03/13/利用Django进行Web开发（一）/4.png" alt=""></p>
+<pre><code>启动内置WEB服务：
+</code></pre><p><img src="/2018/03/13/利用Django进行Web开发（一）/6.png" alt=""><br><img src="/2018/03/13/利用Django进行Web开发（一）/5.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/13/何为敏捷开发/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="居平<juping>">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="居平学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/13/何为敏捷开发/" itemprop="url">何为敏捷开发</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-13T09:03:01+08:00">
+                2018-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/敏捷/" itemprop="url" rel="index">
+                    <span itemprop="name">敏捷</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/13/何为敏捷开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/13/何为敏捷开发/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="敏捷开发小结"><a href="#敏捷开发小结" class="headerlink" title="敏捷开发小结"></a>敏捷开发小结</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title=" 1. 定义 "></a><strong> 1. 定义 </strong></h2><pre><code>敏捷开发以需求进化为核心，采用迭代的方式、循序渐进的方法进行软件开发
+
+软件项目在构建初期会被切分为对个子项目，每个子项目的成果都要经过测试，
+具备可是、可继承和可运行使用的特征
+</code></pre><p>简言之，就是把一个大项目<strong> 拆分 </strong>为多个相互联系，但也<strong> 可独立运行 </strong>的小项目，分别<br>完成，<strong> 在此过程中软件一直处于可使用的状态 </strong></p>
+<h2 id="2-特性"><a href="#2-特性" class="headerlink" title=" 2. 特性 "></a><strong> 2. 特性 </strong></h2><pre><code>1. 快速迭代
+2. 测试和开发人员参与需求讨论
+3. 及早考虑测试
+4. 编写可测试的需求文档
+</code></pre><h2 id="3-形式"><a href="#3-形式" class="headerlink" title=" 3. 形式 "></a><strong> 3. 形式 </strong></h2><pre><code>1. 站会：
+    三个问题（昨天做了什么？昨天遇到什么问题？今天要做什么？）
+
+2. 看板：
+    直观的反应工作进度（燃尽图）
+
+3. 计划、演示回顾会：
+    适合小团队的协作和优化反馈方式
+
+4. Sprint/Story/Task
+
+5. WIKI,JIRA（工具的使用有助于敏捷管理）
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/12/计算机网络基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -400,7 +752,9 @@
       
         
           
-            <h1 id="计算机网络基础"><a href="#计算机网络基础" class="headerlink" title="计算机网络基础"></a>计算机网络基础</h1><h2 id="OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议"><a href="#OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议" class="headerlink" title="OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议"></a>OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议</h2><h3 id="OSI网络五层协议"><a href="#OSI网络五层协议" class="headerlink" title="OSI网络五层协议"></a>OSI网络五层协议</h3><p><strong> 1. 应用层 </strong></p>
+            <h1 id="计算机网络基础"><a href="#计算机网络基础" class="headerlink" title="计算机网络基础"></a>计算机网络基础</h1><h2 id="OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议"><a href="#OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议" class="headerlink" title="OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议"></a>OSI（开放性的通信系统互连参考模型）网络七层协议和五层协议</h2><p><img src="/2018/03/12/计算机网络基础/1.png" alt=""></p>
+<h3 id="OSI网络五层协议"><a href="#OSI网络五层协议" class="headerlink" title="OSI网络五层协议"></a>OSI网络五层协议</h3><p><img src="/2018/03/12/计算机网络基础/2.png" alt=""></p>
+<p><strong> 1. 应用层 </strong></p>
 <pre><code>1.1 与其他计算机进行通讯的一个应用
 
 1.2 HTTP、FTP、NFS、SMTP、TELNET等
@@ -460,7 +814,8 @@
     5.2.1 为传输数据提供数据通路
 
     5.2.2 传输数据，形成是和数据传输的实体，满足点对点，一点到多点，并行，串行，同步，异步等
-</code></pre><h3 id="OSI网络七层协议"><a href="#OSI网络七层协议" class="headerlink" title="OSI网络七层协议"></a>OSI网络七层协议</h3><pre><code>1. 应用层
+</code></pre><p><img src="/2018/03/12/计算机网络基础/3.png" alt=""></p>
+<h3 id="OSI网络七层协议"><a href="#OSI网络七层协议" class="headerlink" title="OSI网络七层协议"></a>OSI网络七层协议</h3><pre><code>1. 应用层
 
 2. 表示层
 
@@ -1087,7 +1442,7 @@ ___
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1098,7 +1453,7 @@ ___
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1109,7 +1464,7 @@ ___
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
