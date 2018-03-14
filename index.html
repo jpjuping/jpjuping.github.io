@@ -296,6 +296,221 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/13/python网络爬虫和正则表达式学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="居平<juping>">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="居平学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/13/python网络爬虫和正则表达式学习/" itemprop="url">python网络爬虫和正则表达式学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-13T15:42:12+08:00">
+                2018-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/13/python网络爬虫和正则表达式学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/13/python网络爬虫和正则表达式学习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-利用urllib2对指定的URL抓取网页内容"><a href="#1-利用urllib2对指定的URL抓取网页内容" class="headerlink" title="1. 利用urllib2对指定的URL抓取网页内容"></a>1. 利用urllib2对指定的URL抓取网页内容</h1><pre><code>网络爬虫（web spider）,把互联网看成一张蜘蛛网，我们要做的就是用代码构造一个类似爬虫的实体，在这张大网上获取我们想要的数据
+
+所谓的网页抓取，就是把URL地址中指定的网络资源从网络流中读取出来，保存到本地
+
+python中提供了专门抓取网络的组件urllib 和 urllib2
+urllib和urllib2不可相互替代的。 整体来说，urllib2是urllib的增强，但是urllib中有urllib2中所没有的函数。
+
+最简单的抓取网络的python代码，四行就可以搞定：
+import urllib2
+response = urllib2.urlopen(&apos;http://www.toutiao.com&apos;)
+html = response.read()
+print html
+
+当然了，绝大多数的网站为了防爬虫，可能会拒绝爬虫的请求，这就需要我们来修改http中的header项了
+还有一个站点所谓的反盗链设置，其实说穿了很简单，就是检查你发送请求的header里面，referer站点是不是他自己，
+所以我们只需要把headers的referer改成该网站即可
+</code></pre><h2 id="1-1-urllib2的使用技巧和抓站技巧"><a href="#1-1-urllib2的使用技巧和抓站技巧" class="headerlink" title="1.1 urllib2的使用技巧和抓站技巧"></a>1.1 urllib2的使用技巧和抓站技巧</h2><h3 id="1-1-1-proxy的设置"><a href="#1-1-1-proxy的设置" class="headerlink" title="1.1.1 proxy的设置"></a>1.1.1 proxy的设置</h3><pre><code>代理设置：
+    import urllib2
+    enable_proxy = True
+    proxy_handle = urllib2.ProxyHandle({&quot;http&quot; : &quot;http://some-proxy.com:8080&quot;})
+    null_proxy_handle = urllib2.ProxyHandle({})
+    if(enable_proxy)
+        opener = urllib2.build_opener(proxy_handle)
+    else
+        opener = urllib2.build_opener(null_proxy_handle)
+    urllib2.install_opener(opener)
+
+    注意： urllib2.install_opener是全局的
+</code></pre><h3 id="1-1-2-timeout设置"><a href="#1-1-2-timeout设置" class="headerlink" title="1.1.2 timeout设置"></a>1.1.2 timeout设置</h3><p><img src="/2018/03/13/python网络爬虫和正则表达式学习/1.png" alt=""></p>
+<h3 id="1-1-3-在HTTP-Request中加入特定的Header"><a href="#1-1-3-在HTTP-Request中加入特定的Header" class="headerlink" title="1.1.3 在HTTP Request中加入特定的Header"></a>1.1.3 在HTTP Request中加入特定的Header</h3><pre><code>要加入header，需要使用Request对象：
+    import urllib2
+    request = urllib2.Request(&quot;http://baidu.com&quot;)
+    request.add_header(&apos;User-Agent&apos;, &apos;fake-client&apos;)
+    response = urllib2.urlopen(request)
+    print response.read()
+</code></pre><h3 id="1-1-4-表单处理"><a href="#1-1-4-表单处理" class="headerlink" title="1.1.4 表单处理"></a>1.1.4 表单处理</h3><pre><code>import urllib2
+import urllib
+postdata = urllib.urlencode({
+    &apos;username&apos;:&apos;赵四&apos;,
+    &apos;password&apos;:&apos;zhaosi&apos;,
+})
+request = urllib2.Request(url=&quot;http://www.baidu.com&quot;,data=postdata)
+response = urllib2.urlopen(request)
+print response.read()
+</code></pre><h3 id="1-1-5-cookie获取"><a href="#1-1-5-cookie获取" class="headerlink" title="1.1.5 cookie获取"></a>1.1.5 cookie获取</h3><pre><code>python通过 cooielib 工具获取
+</code></pre><h3 id="1-1-6-伪装成浏览器访问"><a href="#1-1-6-伪装成浏览器访问" class="headerlink" title="1.1.6 伪装成浏览器访问"></a>1.1.6 伪装成浏览器访问</h3><pre><code>有些网站反感爬虫的到访，需要伪装成浏览器访问
+import urllib
+import urllib2
+postdata = {
+    &apos;username&apos;:&apos;test&apos;,
+    &apos;password&apos;:&apos;123123&apos;
+}
+headers = { 
+    &apos;User-Agent&apos;:&apos;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6&apos;  
+}
+req = urllib2.Request(  
+    url = &apos;http://secure.verycd.com/signin/*/http://www.verycd.com/&apos;,  
+    data = postdata,  
+    headers = headers  
+)
+response = urllib2.urlopen(req)
+print response.read()
+</code></pre><h3 id="1-1-7-防盗盗链"><a href="#1-1-7-防盗盗链" class="headerlink" title="1.1.7 防盗盗链"></a>1.1.7 防盗盗链</h3><pre><code>调整headers 中的referer
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/13/利用Django进行Web开发（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1442,7 +1657,7 @@ ___
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1464,7 +1679,7 @@ ___
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
